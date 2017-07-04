@@ -3,13 +3,20 @@
 
 Game24::Game24()
 {
-	 num_.swap(vector<int>(4,0));
-	 num_tmp_.swap(vector<int>(4, 0));
-	 num_tmp_used_.swap(vector<int>(4, 0));
+	init();
+}
+
+void Game24::init()
+{
+	num_.swap(vector<int>(4, 0));
+	num_tmp_.swap(vector<int>(4, 0));
+	num_tmp_used_.swap(vector<int>(4, 0));
+	result_.clear();
 }
 
 bool Game24::isHadResult(const int& a, const int& b, const int& c, const int& d)
 {
+	init();
 	num_[0] = a;
 	num_[1] = b;
 	num_[2] = c;
@@ -46,7 +53,7 @@ void Game24::startCalc(int num)
 	}
 }
 
-char getOperator(int num)
+char Game24::getOperator(int num)
 {
 	switch (num)
 	{
@@ -250,7 +257,68 @@ double Game24::calculate(char op, double op1, double op2)
 	}
 	return result;
 }
+bool Game24::isRightChar(char c)
+{
+	switch (c)
+	{
+	case '+':
+	case '-':
+	case '*':
+	case '/':
+		//	case '(':
+		//	case ')':
+		return true;
+	default:
+		return false;
+	}
+}
 
+bool Game24::isRightFormula(string str)
+{
+	int flg = 0;
+	for (int i = 0; i != str.size(); ++i)
+	{
+		if (str[i] == '('){
+			if (i == str.size() - 1)
+				return false;
+
+			if (i == 0)
+			if (!isdigit(i + 1))
+				return false;
+
+			if (i != 0)
+			if (!isRightChar(str[i - 1]) && str[i - 1] != '(' || !isdigit(str[i + 1]) && str[i + 1] != '(')
+				return false;
+			++flg;
+		}//if (str[i] == '(' )
+
+		if (str[i] == ')'){
+			if (i == 0)
+				return false;
+
+			if (i == str.size() - 1)
+			if (!isdigit(str[i - 1]) && str[i - 1] != ')')
+				return false;
+
+			if (i != str.size() - 1)
+			if (!isdigit(str[i - 1]) && str[i - 1] != ')' || !isRightChar(str[i + 1]) && str[i + 1] != ')')
+				return false;
+			--flg;
+		}//if (str[i] == ')')
+
+		if (isRightChar(str[i]))
+		{
+			if (i == str.size() - 1)
+				return false;
+
+			if (!isdigit(str[i - 1]) || !isdigit(str[i + 1]) && str[i + 1] != '(')
+				return false;
+		}
+	}
+	if (flg)
+		return false;
+	return true;
+}
 Game24::~Game24()
 {
 }

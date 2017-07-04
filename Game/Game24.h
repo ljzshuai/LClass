@@ -25,8 +25,10 @@ public:
 	bool isHadResult(const int& a,const int& b,const int& c,const int& d); //0·Ç·¨×Ö·û
 	int getresult(const string);
 	vector<string>getAnswer(){ return result_; }
-
+	bool isRightFormula(string str);
 private:
+	void init();
+
 	void model1();//((A   @   B)  @   C)  @   D
 	void model2();//(A   @   B)  @  (C   @   D)
 	void model3();//(A   @  (B   @   C)) @   D
@@ -36,6 +38,8 @@ private:
 	void startCalc(int);
 	int priority(int state, char a);
 	double calculate(char op, double op1, double op2);
+	bool isRightChar(char c);
+	char getOperator(int num);
 
 	vector<int> num_;
 	vector<int> num_tmp_;
