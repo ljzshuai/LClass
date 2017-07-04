@@ -23,7 +23,11 @@ Description:获取cmd命令数据
 #ifdef _WIN32
 #define Lpopen _popen
 #else
+#ifdef __linux
 #define Lpopen popen
+#else
+#error "please use windows or linux"
+#endif
 #endif
 
 namespace LJZ{
