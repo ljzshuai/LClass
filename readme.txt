@@ -2,4 +2,5 @@
 
 LCmd            获取dos命令结果
 LSington        安全的单例模板
-Game24          穷举法算24点		
+Game24          穷举法算24点
+LDate		操作日期\时间		
