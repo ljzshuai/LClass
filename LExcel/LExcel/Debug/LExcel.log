@@ -1,0 +1,14 @@
+﻿生成启动时间为 2017/12/22 17:12:15。
+     1>项目“E:\vc13\git\LClass\LExcel\LExcel\LExcel.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         E:\vs2013\VC\bin\CL.exe /c /I.\GeneratedFiles /I. /ID:\qtvs\5.6\msvc2013\include /I.\GeneratedFiles\Debug /ID:\qtvs\5.6\msvc2013\include\QtCore /ID:\qtvs\5.6\msvc2013\include\QtGui /ID:\qtvs\5.6\msvc2013\include\ActiveQt /ID:\qtvs\5.6\msvc2013\include\QtWidgets /Zi /nologo /W1 /WX- /Od /Oy- /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+       Link:
+         E:\vs2013\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"E:\vc13\git\LClass\LExcel\Win32\Debug\\LExcel.exe" /NOLOGO /LIBPATH:D:\qtvs\5.6\msvc2013\lib qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5AxContainerd.lib Qt5AxBased.lib Qt5Widgetsd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:\vc13\git\LClass\LExcel\Win32\Debug\LExcel.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"E:\vc13\git\LClass\LExcel\Win32\Debug\LExcel.lib" /MACHINE:X86 /SAFESEH Debug\lexcel.obj
+         Debug\main.obj
+         LExcel.vcxproj -> E:\vc13\git\LClass\LExcel\Win32\Debug\LExcel.exe
+     1>已完成生成项目“E:\vc13\git\LClass\LExcel\LExcel\LExcel.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.41
