@@ -77,7 +77,7 @@ namespace LJZ{
 		if (item == 0 || item > SheetCount())
 			return false;
 
-		QAxObject *del_sheet = _work_sheets->querySubObject("Item(int)", num);
+		QAxObject *del_sheet = _work_sheets->querySubObject("Item(int)", item);
 		return del_sheet->dynamicCall("delete").toInt();
 	}
 
@@ -193,10 +193,40 @@ namespace LJZ{
 		merge_cell.append(QChar(cellEnd._column - 1 + 'A'));  //终止列
 		merge_cell.append(QString::number(cellEnd._row));  //终止行
 		QAxObject *merge_range = _work_sheet->querySubObject("Range(const QString&)", merge_cell);
+		if (!merge_range)
+			return false;
 		bool flg = merge_range->setProperty("Value", value);
 
 		delete merge_range;
 		return flg;
+	}
+
+	bool LExcel::mergeCells(LCell cellStart, LCell cellEnd,bool flg)
+	{
+		if (!(_status & LExcelOpen))
+			return false;
+
+		QString merge_cell;
+		merge_cell.append(QChar(cellStart._column - 1 + 'A'));  //初始列
+		merge_cell.append(QString::number(cellStart._row));  //初始行
+		merge_cell.append(":");
+		merge_cell.append(QChar(cellEnd._column - 1 + 'A'));  //终止列
+		merge_cell.append(QString::number(cellEnd._row));  //终止行
+		QAxObject *merge_range = _work_sheet->querySubObject("Range(const QString&)", merge_cell);
+		if (!merge_range)
+			return false;
+
+		return merge_range->setProperty("MergeCells", flg);
+	}
+
+	bool LExcel::mergeCells(LCell cell1, LCell cell2)
+	{
+		return mergeCells(cell1, cell2, true);
+	}
+
+	bool LExcel::rMergeCells(LCell cell1, LCell cell2)
+	{
+		return mergeCells(cell1, cell2, false);
 	}
 
 	LExcel::~LExcel()
@@ -324,4 +354,61 @@ namespace LJZ{
 		return columns->property("Count").toInt();  //获取列数
 	}
 
+	bool LExcel::setCellRowHeight(LCell cell, UInt height)
+	{
+		if (!(_status & LExcelOpen))
+			return false;
+
+		QAxObject *_cell = _work_sheet->querySubObject("Cells(int,int)", cell._row, cell._column);
+		bool flg = _cell->setProperty("RowHeight", height);
+		delete _cell;
+		return flg;
+	}
+
+	bool LExcel::setCellRowHeight(UInt row, UInt column, UInt height)
+	{
+		return setCellRowHeight(LCell(row, column), height);
+	}
+
+	bool  LExcel::setCellColumnWidth(LCell cell, UInt width)
+	{
+		if (!(_status & LExcelOpen))
+			return false;
+
+		QAxObject *_cell = _work_sheet->querySubObject("Cells(int,int)", cell._row, cell._column);
+		bool flg = _cell->setProperty("ColumnWidth", width);
+		delete _cell;
+		return flg;
+	}
+
+	bool  LExcel::setCellColumnWidth(UInt row, UInt column, UInt width)
+	{
+		return setCellColumnWidth(LCell(row, column), width);
+	}
+
+	bool LExcel::setCellAlignment(LCell cell, CellAlignment type)
+	{
+		if (!(_status & LExcelOpen))
+			return false;
+
+		int tmp_type = type;
+		QAxObject *_cell = _work_sheet->querySubObject("Cells(int,int)", cell._row, cell._column);
+		switch (type)
+		{
+		case HorizontalLeft :
+		case HorizontalRight:
+			return _cell->setProperty("HorizontalAlignment", tmp_type);
+		case VerticalBottom:
+		case VerticalTop:
+		case Center:
+			return _cell->setProperty("VerticalAlignment", tmp_type);
+		}
+
+		return false;
+	}
+
+	bool LExcel::setCellAlignment(UInt row, UInt column, CellAlignment type)
+	{
+		return setCellAlignment(LCell(row, column), type);
+	}
 }

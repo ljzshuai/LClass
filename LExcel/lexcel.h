@@ -22,6 +22,15 @@ namespace LJZ{
 	class LExcel
 	{
 	public:
+		enum CellAlignment
+		{
+			HorizontalLeft = -4131,
+			HorizontalRight = -4152,
+			VerticalTop = -4160,
+			VerticalBottom = -4107,
+			Center = -4108,
+		};
+
 		LExcel();
 		bool save();
 		bool saveAs(const QString&);
@@ -46,6 +55,16 @@ namespace LJZ{
 		UInt getRowCount(UInt sheet_item);
 		UInt getColumnCount(UInt sheet_item);
 
+		bool setCellRowHeight(LCell cell,UInt height);
+		bool setCellRowHeight(UInt row,UInt column, UInt height);
+		bool setCellColumnWidth(LCell cell, UInt width);
+		bool setCellColumnWidth(UInt row, UInt column, UInt width);
+		bool setCellAlignment(LCell cell, CellAlignment type);
+		bool setCellAlignment(UInt row, UInt column, CellAlignment type);
+		bool mergeCells(LCell, LCell);
+		bool rMergeCells(LCell, LCell);
+
+
 		bool open(QString path = QString());
 		bool close();
 		~LExcel();
@@ -59,6 +78,7 @@ namespace LJZ{
 		LExcel operator=(const LExcel&) = delete;
 		QString numColumnToString(UInt);
 		QAxObject* getSheet(UInt item);
+		bool mergeCells(LCell, LCell, bool flg);
 
 		QAxObject* _excel;
 		QAxObject* _work_books;
